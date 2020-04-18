@@ -3,9 +3,13 @@ I wanted to challenge myself first, to build the classic snake game without any 
 
 This might not be the efficient way to build the classic snake game, but I succeeded in my challenge and built everything alone completely from scratch. Even the graphics/sprites didn't come from Google, and were made by my brother!
 
-(PS: After downloading and trying a bunch of other mobile snake games, I noticed mine runs much smoother than several others. So, actually, maybe it is an even more efficient way than normal 😊).
+P.S. After downloading and trying a bunch of other mobile snake games, I noticed mine runs much smoother than several others. So, actually, maybe it is an even more efficient way than normal 😊.
 
-View it on the Google Play Store.
+View it on the Google Play Store. (Note that the Play Store version does not contain any of the AI material).
 
+## AI
+* You can view the AI model that I built [here](lib/ai/better_ai.dart).
+
+## Screenshots
 <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_short.png" width="400">  <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_long.png" width="400"> 
 
