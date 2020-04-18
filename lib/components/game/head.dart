@@ -53,6 +53,7 @@ class Head {
         targetLocation.dy.round() == (game.gridSize * 32).round()) {
       setHighScore();
       game.currentScreen = Screens.gameOver;
+      game.aiActivated = false;
     }
 
     //collision
@@ -60,6 +61,7 @@ class Head {
         Point(targetLocation.dx.round(), targetLocation.dy.round()))) {
       setHighScore();
       game.currentScreen = Screens.gameOver;
+      game.aiActivated = false;
     }
   }
 

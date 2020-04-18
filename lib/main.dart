@@ -44,5 +44,6 @@ void main() async {
     'tail_right.png',
     'tail_down.png',
     'tail_left.png',
+    'ai_icon.png',
   ]);
 }

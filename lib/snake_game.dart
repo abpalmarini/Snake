@@ -20,6 +20,10 @@ import 'components/game/apple.dart';
 //logic
 import 'directions.dart';
 import 'dart:math';
+//ai
+import 'ai/ai_button.dart';
+import 'ai/simple_ai.dart';
+import 'ai/better_ai.dart';
 
 class SnakeGame extends Game {
   final SharedPreferences storage;
@@ -56,6 +60,13 @@ class SnakeGame extends Game {
   List<Point> emptyCoordinates = [];
   int score;
 
+  //AI
+  AIButton aiButton;
+  SimpleAI simpleAI;
+  BetterAI betterAI;
+  bool aiActivated = false;
+	Apple previousApple;
+
   SnakeGame(this.initialDimensions, this.storage) {
     resize(initialDimensions);
     setAllCoordinates();
@@ -68,6 +79,11 @@ class SnakeGame extends Game {
     rightButton = RightButton(this);
     upButton = UpButton(this);
     downButton = DownButton(this);
+
+    //AI
+    aiButton = AIButton(this);
+    simpleAI = SimpleAI(this);
+    betterAI = BetterAI(this);
   }
 
   void startGame() {
@@ -114,6 +130,7 @@ class SnakeGame extends Game {
     int numberOfEmptyCoords = emptyCoordinates.length;
     Point randomCoord = emptyCoordinates[random.nextInt(numberOfEmptyCoords)];
 
+		previousApple = apple;
     apple = Apple(this, randomCoord.x, randomCoord.y);
   }
 
@@ -139,6 +156,13 @@ class SnakeGame extends Game {
 
   void onTapDown(TapDownDetails details) {
     if ((currentScreen == Screens.home || currentScreen == Screens.gameOver) &&
+        aiButton.rect.contains(details.globalPosition)) {
+      currentScreen = Screens.playing;
+      startGame();
+      aiActivated = true;
+      return;
+    } else if ((currentScreen == Screens.home ||
+            currentScreen == Screens.gameOver) &&
         playButton.rect.contains(details.globalPosition)) {
       currentScreen = Screens.playing;
       startGame();
@@ -167,6 +191,7 @@ class SnakeGame extends Game {
     background.render(canvas);
     if (currentScreen == Screens.home) {
       playButton.render(canvas);
+      aiButton.render(canvas);
     } else if (currentScreen == Screens.playing) {
       board.render(canvas);
       leftButton.render(canvas);
@@ -187,6 +212,7 @@ class SnakeGame extends Game {
       highScoreDisplay =
           HighScoreDisplay(this, storage.getInt('highScore') ?? 0);
       highScoreDisplay.render(canvas);
+      aiButton.render(canvas);
     }
   }
 
@@ -198,6 +224,10 @@ class SnakeGame extends Game {
       }
       updateCoordinates();
       checkIfAppleEaten();
+    }
+    if (aiActivated) {
+      //simpleAI.update(timeDelta);
+      betterAI.update(timeDelta);
     }
   }
 }
