@@ -5,7 +5,7 @@ This might not be the efficient way to build the classic snake game, but I succe
 
 P.S. After downloading and trying a bunch of other mobile snake games, I noticed mine runs much smoother than several others. So, actually, maybe it is an even more efficient way than normal 😊.
 
-View it on the Google Play Store. (Note that the Play Store version does not contain any of the AI material).
+View it on the [Google Play Store](https://play.google.com/store/apps/details?id=com.palmatoro.snakeai). (Note that the Play Store version does not contain any of the AI material).
 
 ## AI
 * You can view the AI model that I built [here](lib/ai/better_ai.dart).
