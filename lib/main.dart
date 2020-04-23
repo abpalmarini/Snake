@@ -15,7 +15,7 @@ void main() async {
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   Util flameUtil = Util();
-  //flameUtil.fullScreen();
+  flameUtil.fullScreen();
   flameUtil.setOrientation(DeviceOrientation.portraitUp);
   flameUtil.addGestureRecognizer(tapper);
 
@@ -44,6 +44,7 @@ void main() async {
     'tail_right.png',
     'tail_down.png',
     'tail_left.png',
-    'ai_icon.png',
+    'bot.png',
+    'dna.png',
   ]);
 }

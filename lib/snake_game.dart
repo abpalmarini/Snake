@@ -24,6 +24,10 @@ import 'dart:math';
 import 'ai/ai_button.dart';
 import 'ai/simple_ai.dart';
 import 'ai/better_ai.dart';
+import 'ai/genetic_algorithm/individual_snake.dart';
+import 'ai/genetic_algorithm/generation_spawner.dart';
+import 'ai/genetic_algorithm/genetic_info_display.dart';
+import 'ai/genetic_algorithm/genetic_button.dart';
 
 class SnakeGame extends Game {
   final SharedPreferences storage;
@@ -61,11 +65,19 @@ class SnakeGame extends Game {
   int score;
 
   //AI
+  bool aiActivated = false;
+  bool geneticActivated = false;
+  Apple previousApple;
   AIButton aiButton;
   SimpleAI simpleAI;
   BetterAI betterAI;
-  bool aiActivated = false;
-	Apple previousApple;
+  GeneticInfoDisplay geneticInfoDisplay;
+  GeneticButton geneticButton;
+  GenerationSpawner generationSpawner;
+  final int generationSize = 100;
+  List<IndividualSnake> generation = [];
+  int currentSnake = 0;
+  int currentGeneration = 1;
 
   SnakeGame(this.initialDimensions, this.storage) {
     resize(initialDimensions);
@@ -84,14 +96,18 @@ class SnakeGame extends Game {
     aiButton = AIButton(this);
     simpleAI = SimpleAI(this);
     betterAI = BetterAI(this);
+    geneticInfoDisplay = GeneticInfoDisplay(this);
+    geneticButton = GeneticButton(this);
+    generationSpawner = GenerationSpawner(this);
+    for (int i = 0; i < generationSize; i++) {
+      generation.add(IndividualSnake(this, true));
+    }
   }
 
   void startGame() {
     bodyParts.clear();
     direction = Directions.UP;
     emptyCoordinates = allCoordinates.toList();
-    //removing the snake's starting position
-    emptyCoordinates.remove(Point((gridSize * 8), (gridSize * 15)));
     score = 0;
     board = Board(this);
     head = Head(this);
@@ -123,6 +139,9 @@ class SnakeGame extends Game {
       score++;
       spawnNewApple();
       spawnBody();
+      if (geneticActivated) {
+        generation[currentSnake].score += 10; //@Genetics
+      }
     }
   }
 
@@ -130,7 +149,7 @@ class SnakeGame extends Game {
     int numberOfEmptyCoords = emptyCoordinates.length;
     Point randomCoord = emptyCoordinates[random.nextInt(numberOfEmptyCoords)];
 
-		previousApple = apple;
+    previousApple = apple;
     apple = Apple(this, randomCoord.x, randomCoord.y);
   }
 
@@ -156,6 +175,13 @@ class SnakeGame extends Game {
 
   void onTapDown(TapDownDetails details) {
     if ((currentScreen == Screens.home || currentScreen == Screens.gameOver) &&
+        geneticButton.rect.contains(details.globalPosition)) {
+      currentScreen = Screens.playing;
+      startGame();
+      geneticActivated = true;
+      return;
+    } else if ((currentScreen == Screens.home ||
+            currentScreen == Screens.gameOver) &&
         aiButton.rect.contains(details.globalPosition)) {
       currentScreen = Screens.playing;
       startGame();
@@ -192,6 +218,7 @@ class SnakeGame extends Game {
     if (currentScreen == Screens.home) {
       playButton.render(canvas);
       aiButton.render(canvas);
+      geneticButton.render(canvas);
     } else if (currentScreen == Screens.playing) {
       board.render(canvas);
       leftButton.render(canvas);
@@ -204,6 +231,10 @@ class SnakeGame extends Game {
       }
       apple.render(canvas);
       head.render(canvas);
+      if (geneticActivated) {
+        //@Genetics
+        geneticInfoDisplay.render(canvas);
+      }
     } else if (currentScreen == Screens.gameOver) {
       playButton.render(canvas);
       gameOverTitle.render(canvas);
@@ -213,6 +244,7 @@ class SnakeGame extends Game {
           HighScoreDisplay(this, storage.getInt('highScore') ?? 0);
       highScoreDisplay.render(canvas);
       aiButton.render(canvas);
+      geneticButton.render(canvas);
     }
   }
 
@@ -228,6 +260,8 @@ class SnakeGame extends Game {
     if (aiActivated) {
       //simpleAI.update(timeDelta);
       betterAI.update(timeDelta);
+    } else if (geneticActivated) {
+      geneticInfoDisplay.update(timeDelta);
     }
   }
 }

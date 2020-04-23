@@ -15,7 +15,7 @@ class Head {
   Head(this.game) {
     rect = Rect.fromLTWH(
       game.gridSize * 16, //half way across the board
-      game.gridSize * 30, //bottom of the board
+      game.gridSize * 16, //half way across the board
       game.gridSize,
       game.gridSize,
     );
@@ -40,9 +40,26 @@ class Head {
       rect = rect.shift(toTarget);
       previousTarget = targetLocation;
       setTargetLocation();
+      if(game.geneticActivated){
+        game.generation[game.currentSnake].update(timeDelta); //@Genetic
+      }
     }
 
     checkIfDead();
+  }
+
+  void runGeneticAlgorithm(){ //@Genetic
+    game.generation[game.currentSnake].printDetails(); 
+    if(game.currentSnake == (game.generationSize - 1)){
+      //run new generation spawner
+      game.currentSnake = 0;
+      game.currentGeneration++;
+      game.generationSpawner.spawnNewGeneration();
+      game.startGame();
+      } else {
+      game.currentSnake++;
+      game.startGame();   
+    }
   }
 
   void checkIfDead() {
@@ -52,16 +69,24 @@ class Head {
         targetLocation.dy.round() == (game.gridSize * 3).round() ||
         targetLocation.dy.round() == (game.gridSize * 32).round()) {
       setHighScore();
-      game.currentScreen = Screens.gameOver;
-      game.aiActivated = false;
+      if(game.geneticActivated){ //@Genetic
+        runGeneticAlgorithm();
+      } else {               
+       game.currentScreen = Screens.gameOver;
+       game.aiActivated = false;
+      }
     }
 
     //collision
     if (game.occupiedCoordinates.contains(
         Point(targetLocation.dx.round(), targetLocation.dy.round()))) {
       setHighScore();
-      game.currentScreen = Screens.gameOver;
-      game.aiActivated = false;
+      if(game.geneticActivated){ //@Genetic
+        runGeneticAlgorithm();
+      } else {
+       game.currentScreen = Screens.gameOver;
+       game.aiActivated = false;
+      }
     }
   }
 

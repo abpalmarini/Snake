@@ -8,7 +8,8 @@ P.S. After downloading and trying a bunch of other mobile snake games, I noticed
 View it on the [Google Play Store](https://play.google.com/store/apps/details?id=com.palmatoro.snakeai). (Note that the Play Store version does not contain any of the AI material).
 
 ## AI
-* You can view the AI model that I built [here](lib/ai/better_ai.dart).
+* You can view my rule based AI model that I built [here](lib/ai/better_ai.dart). It does really well and currently has a record of 67 apples. 
+* To read about my neural network / genetic algorithm approach see [genetic_algorithm.md](lib/ai/genetic_algorithm)
 
 ## Screenshots
 <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_short.png" width="400">  <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_long.png" width="400"> 

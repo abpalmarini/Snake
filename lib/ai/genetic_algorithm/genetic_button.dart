@@ -2,19 +2,19 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:snakeai/snake_game.dart';
 
-class AIButton {
+class GeneticButton {
   final SnakeGame game;
   Rect rect;
   Sprite sprite;
 
-  AIButton(this.game) {
+  GeneticButton(this.game) {
     rect = Rect.fromLTWH(
-      7,
-      game.screenSize.height - game.tileSize - 7, 
-      game.tileSize,
-      game.tileSize,
+      game.screenSize.width - game.tileSize - 25,
+      game.screenSize.height - (game.tileSize * 0.5) - 7 ,
+      game.tileSize + 18,
+      game.tileSize * 0.5,  
     );
-    sprite = Sprite('bot.png');
+    sprite = Sprite('dna.png');
   }
 
   void render(Canvas canvas) {
