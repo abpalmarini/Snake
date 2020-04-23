@@ -9,7 +9,7 @@ View it on the [Google Play Store](https://play.google.com/store/apps/details?id
 
 ## AI
 * You can view my rule based AI model that I built [here](lib/ai/better_ai.dart). It does really well and currently has a record of 67 apples. 
-* To read about my neural network / genetic algorithm approach see [genetic_algorithm.md](lib/ai/genetic_algorithm/genetic_algorithm.md)
+* To read about my neural network / genetic algorithm approach see [here](lib/ai/genetic_algorithm/genetic_algorithm.md).
 
 ## Screenshots
 <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_short.png" width="400">  <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_long.png" width="400"> 
