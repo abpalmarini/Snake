@@ -17,7 +17,7 @@ highest scores and combine their weights into one new set of weights. I then cre
 new snakes based off this 'baby' set of weights, where a random selection of weights are
 modified for each snake (mutations). This process is then continually repeated.
 
-Each snake was being fed the following binary (1 or 0) inputs for each new grid:
+Each snake is being fed the following binary (1 or 0) inputs for each new grid:
 * Is it empty one grid to the:
   * left                   - a
   * right                  - b
@@ -29,13 +29,9 @@ Each snake was being fed the following binary (1 or 0) inputs for each new grid:
   * top                    - g
   * bottom                 - h
 
-    Input - [a,b,c,d,e,f,g,h] 
+Input - [a, b, c, d, e, f, g, h] 
 
-And based off those inputs it will decide a direction to take (with one hidden layer):
-* Left
-* Right
-* Up
-* Down
+And based off those inputs it will decide a direction to take (with one hidden layer).
 
 I found that it works well for the first few generations and I even get snakes eating 
 multiple apples in a row, but then it almost always ends up with an entire generation
