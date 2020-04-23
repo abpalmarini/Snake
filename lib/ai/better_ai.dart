@@ -4,7 +4,7 @@ import 'package:snakeai/components/game/body.dart';
 import 'dart:ui';
 
 /*----------------------
-    RECORD = 58 apples
+    RECORD = 67 apples
   ----------------------*/
 
 /* 
