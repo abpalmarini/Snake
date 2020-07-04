@@ -4,6 +4,8 @@ My mobile implementation of the classic Snake game. This was really built as a l
 
 View it on the [Google Play Store](https://play.google.com/store/apps/details?id=com.palmatoro.snakeai).
 
-## Screenshots (All sprites were made by my brother)
+(All sprites and graphics were made by my brother).
+
+## Screenshots
 <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_short.png" width="400">  <img src="https://github.com/abpalmarini/snake_ai/blob/master/screenshots/playing_long.png" width="400"> 
 
